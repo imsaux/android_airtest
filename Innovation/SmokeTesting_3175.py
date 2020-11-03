@@ -57,6 +57,7 @@ class SmokeTesting_3175(unittest.TestCase):
         
         
     def test_3175(self):
+        # 3175用例
         self._app_home_page()
         self._innovation_home_page()
         self._innovation_result_list()
