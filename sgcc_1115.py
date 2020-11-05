@@ -1,5 +1,5 @@
 import unittest
-import os
+
 
 def GetSuite():
     suites = unittest.TestSuite()

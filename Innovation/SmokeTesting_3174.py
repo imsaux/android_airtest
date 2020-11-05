@@ -2,10 +2,12 @@
 __author__ = "suny"
 
 import unittest
-import time
 from airtest.core.api import *
 from airtest.cli.parser import cli_setup
 from poco.drivers.android.uiautomation import AndroidUiautomationPoco
+
+from Homepage.SmokeTesting_3035 import SmokeTesting_3035
+from Innovation.SmokeTesting_3172 import SmokeTesting_3172
 
 if not cli_setup():
     auto_setup(
@@ -26,21 +28,7 @@ class SmokeTesting_3174(unittest.TestCase):
     def tearDown(self):
         stop_app("com.sgcc.grsg.app")
 
-
-    def _app_home_page(self):
-        _home_page_title_obj = self.poco("android.widget.LinearLayout").offspring("android:id/content").offspring("com.sgcc.grsg.app:id/tv_index_title")
-        _home_page_title_obj.wait_for_appearance()
-        _home_page_title_obj_text = _home_page_title_obj.get_text()
-        assert_equal(_home_page_title_obj_text, '首页', '首页显示正常')
-        
-    def _first_page(self):
-        # 首页
-        self.poco("com.sgcc.grsg.app:id/tv_index_innovate").click()
-        time.sleep(3)
-        _v = self.poco("android.widget.LinearLayout").offspring("com.sgcc.grsg.app:id/root_view").offspring("com.sgcc.grsg.app:id/navigation").offspring("com.sgcc.grsg.app:id/tv_navigatio_title").get_text()
-        assert_equal(_v, "培育创新", "培育创新首页加载正常")
-
-    def _innovation_result_detail_pic(self):
+    def _innovation_result_detail_from_pic(self):
         # 成果概览详情
         _obj = self.poco("android.widget.LinearLayout").offspring("com.sgcc.grsg.app:id/root_view").offspring("android.widget.ScrollView").offspring("com.sgcc.grsg.app:id/innovation_results").child("android.widget.LinearLayout")[0].child("com.sgcc.grsg.app:id/title")
         _obj_text = _obj.get_text()
@@ -53,9 +41,9 @@ class SmokeTesting_3174(unittest.TestCase):
         
         
     def test_3174(self):
-        self._app_home_page()
-        self._first_page()
-        self._innovation_result_detail_pic()
+        SmokeTesting_3035._app_home_page()
+        SmokeTesting_3172._innovation_home_page()
+        self._innovation_result_detail_from_pic()
 
 
 if __name__ == '__main__':

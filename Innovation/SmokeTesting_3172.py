@@ -2,10 +2,12 @@
 __author__ = "suny"
 
 import unittest
-import time
 from airtest.core.api import *
 from airtest.cli.parser import cli_setup
 from poco.drivers.android.uiautomation import AndroidUiautomationPoco
+
+from Homepage.SmokeTesting_3035 import SmokeTesting_3035
+
 
 if not cli_setup():
     auto_setup(
@@ -26,16 +28,21 @@ class SmokeTesting_3172(unittest.TestCase):
     def tearDown(self):
         stop_app("com.sgcc.grsg.app")
 
-    
-    def _first_page(self):
-        # 首页
-        self.poco("com.sgcc.grsg.app:id/tv_index_innovate").click()
+    def _innovation_home_page(self):
+        # 培育创新首页
+        _innovation_btn = self.poco("com.sgcc.grsg.app:id/tv_index_innovate")
+        _innovation_btn.click()
+        _innovation_first_page_title_obj = self.poco("android.widget.LinearLayout").offspring(
+            "com.sgcc.grsg.app:id/root_view").offspring("com.sgcc.grsg.app:id/navigation").offspring(
+            "com.sgcc.grsg.app:id/tv_navigatio_title")
+        _innovation_first_page_title_obj.wait_for_appearance()
+        _innovation_first_page_title_obj_text = _innovation_first_page_title_obj.get_text()
+        assert_equal(_innovation_first_page_title_obj_text, "培育创新", "培育创新首页显示正常")
         time.sleep(3)
-        _v = self.poco("android.widget.LinearLayout").offspring("com.sgcc.grsg.app:id/root_view").offspring("com.sgcc.grsg.app:id/navigation").offspring("com.sgcc.grsg.app:id/tv_navigatio_title").get_text()
-        assert_equal(_v, "培育创新", "培育创新首页加载正常")
 
     def test_3172(self):
-        self._first_page()
+        SmokeTesting_3035._app_home_page()
+        self._innovation_home_page()
 
 
 if __name__ == '__main__':
