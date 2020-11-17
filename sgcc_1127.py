@@ -6,7 +6,7 @@ case_path = os.getcwd()
 
 def GetSuite():
     suites = unittest.TestSuite()
-    suites.addTests(unittest.TestLoader().discover(case_path, pattern="ST_Innovation_202010.py", top_level_dir=None))
+    suites.addTests(unittest.TestLoader().discover(case_path, pattern="ST_*.py", top_level_dir=None))
     return suites
 
 

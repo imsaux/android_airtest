@@ -5,7 +5,7 @@ from poco.exceptions import *
 import time
 
 
-def _app_home_page(poco):
+def app_home_page(poco):
     # app首页
     _home_page_title_obj = poco("android.widget.LinearLayout").offspring("android:id/content").offspring(
         "com.sgcc.grsg.app:id/tv_index_title")
@@ -14,7 +14,7 @@ def _app_home_page(poco):
     assert_equal(_home_page_title_obj_text, '首页', '首页显示正常')
 
 
-def _innovation_home_page(poco):
+def innovation_home_page(poco):
     # 培育创新首页
     _innovation_homepage_title_obj_text = ''
     try:
@@ -36,7 +36,7 @@ def _innovation_home_page(poco):
 
 
 # 成果概览详情（点击图片）
-def _innovation_result_detail_from_pic(poco):
+def innovation_result_detail_from_pic(poco):
     _obj_text, _click_obj_text = '',''
     try:
         _obj = poco("com.sgcc.grsg.app:id/title")
@@ -64,23 +64,61 @@ def _innovation_result_detail_from_pic(poco):
     assert_equal(_obj_text, _click_obj_text, '成果概览详情正确显示')
 
 
-def _innovation_result_list(poco):
+def innovation_result_list(poco):
     # 成果概览列表
-    _obj = poco("android.widget.LinearLayout").offspring("com.sgcc.grsg.app:id/root_view").offspring(
-        "android.widget.ScrollView").offspring("com.sgcc.grsg.app:id/rl_index_result").child(
-        "android.widget.TextView")[1]
-    _obj.click()
+    poco(text="更多").click()
+    time.sleep(3)
     _result_list_obj = poco("android.widget.LinearLayout").offspring("android:id/content").offspring(
         "com.sgcc.grsg.app:id/innovation_overview_result_bar").offspring("com.sgcc.grsg.app:id/tv_navigatio_title")
     # _result_list_obj.wait_for_appearance()
     _result_list_obj_text = _result_list_obj.get_text()
     assert_equal(_result_list_obj_text, '成果概览', '成果概览列表页显示验证')
-    # pass
 
 
-def _innovation_result_list_search(poco):
-    # 成果概览列表搜索
+# 成果概览列表搜索
+def innovation_result_list_search(poco):
+    poco("com.sgcc.grsg.app:id/iv_topnvigationbar_right").click()
+    obj = poco("com.sgcc.grsg.app:id/et_search")
+    obj.click()
+    text('能源')
+    poco("com.sgcc.grsg.app:id/search_ok").click()
+
+    result_list = poco("android.widget.LinearLayout").offspring("android:id/content").offspring("com.sgcc.grsg.app:id/search_ry").child("android.widget.LinearLayout")
+    if len(result_list) > 0:
+        for obj in result_list:
+            _title_obj = obj.child("android.widget.LinearLayout").offspring("com.sgcc.grsg.app:id/item_title")
+            assert_equal('能源' in _title_obj.get_text(), True, '成果列表查询结果不准确')
+    else:
+        assert_equal(True, False, '成果列表查询无结果')
+
+
+# 查看成果详情
+def innovation_result_details(poco):
+    result_list = poco("android.widget.LinearLayout").offspring("android:id/content").offspring("com.sgcc.grsg.app:id/recycler_list").child("android.widget.LinearLayout")
+    if len(result_list) > 0:
+        _result_obj = result_list[0].child("android.widget.LinearLayout").offspring("com.sgcc.grsg.app:id/item_title")
+        _result_obj_text = _result_obj.get_text()
+        _result_obj.click()
+        time.sleep(3)
+        _clicked_obj = poco("android.widget.LinearLayout").offspring("android.webkit.WebView").offspring("app").child("android.view.View")[2]
+        assert_equal(_result_obj_text, _clicked_obj.get_text(), '成果列表查询结果不准确')
+    else:
+        assert_equal(True, False, '成果列表查询无结果')
+
+
+# 研究单位详情
+def innovation_corporation_description(poco):
+    poco("android.widget.LinearLayout").offspring("android.webkit.WebView").offspring("app").child("android.view.View")[4].child("android.view.View")[1].click()
+    sleep(3)
+    _title_obj = poco("android.widget.LinearLayout").offspring("android.webkit.WebView").offspring("app").child("android.view.View")[7].child("android.view.View")[0].child("android.view.View")[0]
+    assert_equal(_title_obj.get_text(), '研究单位', '研究单位介绍页面异常')
+
+
+# 大咖
+def innovation_magnate_list(poco):
     pass
+
+
 
 
 if __name__ == '__main__':
@@ -89,15 +127,22 @@ if __name__ == '__main__':
     if not cli_setup():
         auto_setup(
             __file__,
-            logdir=True,
+            logdir=False,
             devices=[config.to_device["android"], ],
-            # project_root="Z:/Downloads/AirTest_python_script"
         )
     poco = AndroidUiautomationPoco(use_airtest_input=True, screenshot_each_action=False)
     start_app("com.sgcc.grsg.app")
     time.sleep(10)
-    print('_innovation_home_page >>')
-    _innovation_home_page(poco)
-    time.sleep(5)
-    print('_innovation_result_detail_from_pic >>')
-    _innovation_result_detail_from_pic(poco)
+
+    ## 测试代码写在下面 ##
+    app_home_page(poco)
+    time.sleep(3)
+    innovation_home_page(poco)
+    time.sleep(3)
+    innovation_result_list(poco)
+    time.sleep(3)
+    innovation_result_list_search(poco)
+
+
+    ## 退出
+    stop_app("com.sgcc.grsg.app")

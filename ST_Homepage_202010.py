@@ -17,7 +17,6 @@ if not cli_setup():
         __file__,
         logdir=False,
         devices=[config.to_device["android"],],
-        # project_root="Z:/Downloads/AirTest_python_script"
     )
 
 
@@ -31,7 +30,7 @@ class ST_Innovation(unittest.TestCase):
         stop_app("com.sgcc.grsg.app")
 
     def test_3035(self):
-        util._app_home_page(self.poco)
+        util.app_home_page(self.poco)
 
 
 if __name__ == '__main__':
