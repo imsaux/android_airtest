@@ -1,6 +1,7 @@
 # -*- encoding=utf8 -*-
 __author__ = "suny"
 
+
 import unittest
 from airtest.core.api import *
 from airtest.cli.parser import cli_setup
@@ -14,18 +15,18 @@ import config
 if not cli_setup():
     auto_setup(
         __file__,
-        logdir=True,
+        logdir=False,
         devices=[config.to_device["android"],],
         # project_root="Z:/Downloads/AirTest_python_script"
     )
 
 
-class SmokeTesting_3035(unittest.TestCase):
+class ST_Innovation(unittest.TestCase):
     def setUp(self):
         self.poco = AndroidUiautomationPoco(use_airtest_input=True, screenshot_each_action=False)
         start_app("com.sgcc.grsg.app")
         time.sleep(5)
-    
+
     def tearDown(self):
         stop_app("com.sgcc.grsg.app")
 
@@ -34,4 +35,4 @@ class SmokeTesting_3035(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(verbosity=2)
+    unittest.main()
