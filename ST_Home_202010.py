@@ -9,18 +9,19 @@ from poco.drivers.android.uiautomation import AndroidUiautomationPoco
 import os
 import sys
 sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' + '..'))
-import util
-import config
+
+import BusinessLogic
+import Config
 
 if not cli_setup():
     auto_setup(
         __file__,
         logdir=False,
-        devices=[config.to_device["android"],],
+        devices=[Config.to_device["android"], ],
     )
 
 
-class ST_Innovation(unittest.TestCase):
+class ST_Home(unittest.TestCase):
     def setUp(self):
         self.poco = AndroidUiautomationPoco(use_airtest_input=True, screenshot_each_action=False)
         start_app("com.sgcc.grsg.app")
@@ -30,7 +31,7 @@ class ST_Innovation(unittest.TestCase):
         stop_app("com.sgcc.grsg.app")
 
     def test_3035(self):
-        util.app_home_page(self.poco)
+        BusinessLogic.app_home_page(self.poco)
 
 
 if __name__ == '__main__':

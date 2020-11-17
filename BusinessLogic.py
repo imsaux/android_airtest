@@ -122,13 +122,13 @@ def innovation_magnate_list(poco):
 
 
 if __name__ == '__main__':
-    import config
+    import Config
 
     if not cli_setup():
         auto_setup(
             __file__,
             logdir=False,
-            devices=[config.to_device["android"], ],
+            devices=[Config.to_device["android"], ],
         )
     poco = AndroidUiautomationPoco(use_airtest_input=True, screenshot_each_action=False)
     start_app("com.sgcc.grsg.app")
