@@ -82,6 +82,87 @@ class ST_Innovation(unittest.TestCase):
         sleep(3)
         BusinessLogic.innovation_corporation_description(self.poco)
 
+    # 创新动态详情验证
+    def test_3179(self):
+        BusinessLogic.app_home_page(self.poco)
+        sleep(5)
+        BusinessLogic.innovation_home_page(self.poco)
+        sleep(5)
+        BusinessLogic.innovation_developments_details(self.poco)
+
+    #创新政策列表查询验证
+    def test_3180(self):
+        # todo 待定
+        pass
+
+
+    #创新政策详情页面验证
+    def test_3181(self):
+        # todo 待定
+        pass
+
+
+    # 培育共同体首页验证
+    def test_3182(self):
+        BusinessLogic.app_home_page(self.poco)
+        sleep(3)
+        BusinessLogic.innovation_home_page(self.poco)
+        sleep(3)
+        BusinessLogic.innovation_community_homepage(self.poco)
+
+    # 培育共同体实验室首页验证
+    def test_3183(self):
+        BusinessLogic.app_home_page(self.poco)
+        sleep(3)
+        BusinessLogic.innovation_home_page(self.poco)
+        sleep(3)
+        BusinessLogic.innovation_community_homepage(self.poco)
+        sleep(3)
+        BusinessLogic.innovation_community_homepage_more(self.poco)
+
+    # 培育共同体专家列表验证
+    def test_3184(self):
+        BusinessLogic.app_home_page(self.poco)
+        sleep(3)
+        BusinessLogic.innovation_home_page(self.poco)
+        sleep(3)
+        BusinessLogic.innovation_community_homepage(self.poco)
+        sleep(3)
+        BusinessLogic.innovation_experts_list(self.poco)
+
+    # 培育共同体专家详情验证 —— 共同体首页
+    def test_3185_1(self):
+        BusinessLogic.app_home_page(self.poco)
+        sleep(3)
+        BusinessLogic.innovation_home_page(self.poco)
+        sleep(5)
+        BusinessLogic.innovation_community_homepage(self.poco)
+        sleep(3)
+        BusinessLogic.innovation_experts_details_from_homepage(self.poco)
+
+    # 培育共同体专家详情验证 —— 专家列表
+    def test_3185_2(self):
+        BusinessLogic.app_home_page(self.poco)
+        sleep(3)
+        BusinessLogic.innovation_home_page(self.poco)
+        sleep(3)
+        BusinessLogic.innovation_community_homepage(self.poco)
+        sleep(3)
+        BusinessLogic.innovation_experts_list(self.poco)
+        sleep(3)
+        BusinessLogic.innovation_experts_details_from_experts_list(self.poco)
+
+    #  培育共同体专家列表查询验证
+    def test_3186(self):
+        BusinessLogic.app_home_page(self.poco)
+        sleep(3)
+        BusinessLogic.innovation_home_page(self.poco)
+        sleep(3)
+        BusinessLogic.innovation_community_homepage(self.poco)
+        sleep(3)
+        BusinessLogic.innovation_experts_list(self.poco)
+        sleep(3)
+        BusinessLogic.innovation_experts_details_from_experts_list(self.poco)
 
 
 if __name__ == '__main__':
