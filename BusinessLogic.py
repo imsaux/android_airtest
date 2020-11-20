@@ -153,9 +153,9 @@ def innovation_developments_details(poco):
 
 # 共同体首页
 def innovation_community_home(poco):
-    poco(text="培育动态").swipe([-0.0588, -0.7776])
+    poco(text="培育动态").swipe('down')
     sleep(2)
-    poco(text="创新共同体").swipe([0.0, -0.6027])
+    poco(text="创新共同体").swipe('down')
     sleep(2)
     community_list = poco("android.widget.LinearLayout").offspring("com.sgcc.grsg.app:id/root_view").offspring("android.widget.ScrollView").offspring("com.sgcc.grsg.app:id/innovation_gongtongti").child("android.widget.LinearLayout")
     if len(community_list) > 0:
@@ -243,66 +243,17 @@ def innovation_experts_details_from_homepage(poco):
 
 # 专家详情1 专家列表
 def innovation_experts_details_from_experts_list(poco):
-    experts_list = poco("android.widget.LinearLayout").offspring("android:id/content").offspring("com.sgcc.grsg.app:id/recycler_expert_list").child("android.widget.RelativeLayout")
+    experts_list = poco('com.sgcc.grsg.app:id/recycler_expert_list').child('android.widget.RelativeLayout')
     if len(experts_list) > 0:
         expert_name = experts_list[0].child("com.sgcc.grsg.app:id/name")
         expert_name_text = expert_name.get_text()
-        expert_name.click()
-        sleep(5)
-        clicked_expert_name_text = poco("android.widget.LinearLayout").offspring("android.webkit.WebView").offspring("app").child("android.view.View")[1].get_text()
-        assert_equal(expert_name_text, clicked_expert_name_text, '共同体首页跳转专家详情错误')
-        poco("android.widget.LinearLayout").offspring("android.webkit.WebView").offspring("app").child("android.view.View")[0].child("android.widget.Image").click()
-        sleep(3)
-
-        expert_img = experts_list[0].child("com.sgcc.grsg.app:id/image")
-        expert_img.click()
-        sleep(5)
-        clicked_expert_name_text = poco("android.widget.LinearLayout").offspring("android.webkit.WebView").offspring("app").child("android.view.View")[1].get_text()
-        assert_equal(expert_name_text, clicked_expert_name_text, '共同体首页跳转专家详情错误')
-        poco("android.widget.LinearLayout").offspring("android.webkit.WebView").offspring("app").child("android.view.View")[0].child("android.widget.Image").click()
-        sleep(3)
-
-        expert_img = experts_list[0].child("com.sgcc.grsg.app:id/company")
-        expert_img.click()
-        sleep(5)
-        clicked_expert_name_text = poco("android.widget.LinearLayout").offspring("android.webkit.WebView").offspring("app").child("android.view.View")[1].get_text()
-        assert_equal(expert_name_text, clicked_expert_name_text, '共同体首页跳转专家详情错误')
-        poco("android.widget.LinearLayout").offspring("android.webkit.WebView").offspring("app").child("android.view.View")[0].child("android.widget.Image").click()
-        sleep(3)
-
-        expert_img = experts_list[0].child("com.sgcc.grsg.app:id/office")
-        expert_img.click()
-        sleep(5)
-        clicked_expert_name_text = poco("android.widget.LinearLayout").offspring("android.webkit.WebView").offspring("app").child("android.view.View")[1].get_text()
-        assert_equal(expert_name_text, clicked_expert_name_text, '共同体首页跳转专家详情错误')
-        poco("android.widget.LinearLayout").offspring("android.webkit.WebView").offspring("app").child("android.view.View")[0].child("android.widget.Image").click()
-        sleep(3)
-
-        expert_img = experts_list[0].child("com.sgcc.grsg.app:id/field")
-        expert_img.click()
-        sleep(5)
-        clicked_expert_name_text = poco("android.widget.LinearLayout").offspring("android.webkit.WebView").offspring("app").child("android.view.View")[1].get_text()
-        assert_equal(expert_name_text, clicked_expert_name_text, '共同体首页跳转专家详情错误')
-        poco("android.widget.LinearLayout").offspring("android.webkit.WebView").offspring("app").child("android.view.View")[0].child("android.widget.Image").click()
-        sleep(3)
-
-        expert_img = experts_list[0].child("com.sgcc.grsg.app:id/num")
-        expert_img.click()
-        sleep(5)
-        clicked_expert_name_text = poco("android.widget.LinearLayout").offspring("android.webkit.WebView").offspring("app").child("android.view.View")[1].get_text()
-        assert_equal(expert_name_text, clicked_expert_name_text, '共同体首页跳转专家详情错误')
-        poco("android.widget.LinearLayout").offspring("android.webkit.WebView").offspring("app").child("android.view.View")[0].child("android.widget.Image").click()
-        sleep(3)
-
-
-        expert_img = experts_list[0].child("com.sgcc.grsg.app:id/time")
-        expert_img.click()
-        sleep(5)
-        clicked_expert_name_text = poco("android.widget.LinearLayout").offspring("android.webkit.WebView").offspring("app").child("android.view.View")[1].get_text()
-        assert_equal(expert_name_text, clicked_expert_name_text, '共同体首页跳转专家详情错误')
-        poco("android.widget.LinearLayout").offspring("android.webkit.WebView").offspring("app").child("android.view.View")[0].child("android.widget.Image").click()
+        experts_list[0].click()
+        sleep(7)
+        clicked_expert_name_obj = poco('app').child('android.view.View')
+        assert_equal(clicked_expert_name_obj[1].get_text(), expert_name_text, '共同体首页跳转专家详情错误')
     else:
         assert_equal(False, True, '专家列表记录为空')
+
 
 # 资讯首页
 def information_home(poco):
@@ -314,7 +265,7 @@ def information_home(poco):
 
 
 # 资讯搜索
-def information_search(poco, keyword='能源', auto_back=False):
+def information_search(poco, keyword='能源'):
     if keyword is not str:
         keyword = '能源'
     search_obj = poco('com.sgcc.grsg.app:id/et_consult_search')
@@ -335,7 +286,8 @@ def information_search(poco, keyword='能源', auto_back=False):
             assert_equal(False, True, '资讯列表查询结果错误')
     else:
         assert_equal(False, True, '资讯查询无结果')
-    
+
+
 # 资讯首页tab切换
 def information_tab_change(poco):
     total_list = list()
@@ -367,8 +319,10 @@ def _information_get_current_contents(poco):
         tmp.append(item.get_text())
     return tmp
 
+
 # 资讯列表排序
 def information_list_sort(poco):
+    # todo 待开发
     pass
 
 
@@ -387,6 +341,7 @@ def _information_sort_datetime(items):
         return (False, 0)
 
 
+# 资讯详情
 def information_details(poco):
     information_list = poco('com.sgcc.grsg.app:id/recycler_base_page_list').child('android.widget.RelativeLayout')
     if len(information_list) > 0:
@@ -422,7 +377,7 @@ def information_contribute_home(poco):
 
 
 # 投稿编辑
-def information_contribute_edit(poco, title, content):
+def information_contribute_edit(poco, title='投稿标题测试', content='投稿内容测试'):
     contribute_title_obj = poco('com.sgcc.grsg.app:id/et_contribute_title')
     contribute_title_obj.click()
     if title is not str:
@@ -481,24 +436,26 @@ def app_login(poco):
     pass
 
 
+# 登出
+def app_logout(poco):
+    pass
+
+
 if __name__ == '__main__':
-    import Config
+    import Utility
 
     if not cli_setup():
         auto_setup(
             __file__,
             logdir=False,
-            devices=[Config.to_device["android"], ],
+            devices=[Utility.to_device["android"], ],
         )
     poco = AndroidUiautomationPoco(use_airtest_input=True, screenshot_each_action=False)
     # start_app("com.sgcc.grsg.app")
     # time.sleep(10)
 
     ## 测试代码写在下面 ##
-    title = '测试一下吧'
-    content = '测试一下吧'
-    information_contribute_edit(poco, title, content)
-
+    innovation_experts_details_from_experts_list(poco)
 
 
 
