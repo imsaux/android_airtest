@@ -6,16 +6,12 @@ import unittest
 from airtest.core.api import *
 from airtest.cli.parser import cli_setup
 from poco.drivers.android.uiautomation import AndroidUiautomationPoco
-import BusinessLogic
-import Utility
+from PO import Public, Utility
 
 
 if not cli_setup():
-    auto_setup(
-        __file__,
-        logdir=False,
-        devices=[Utility.to_device["android"], ],
-    )
+    auto_setup(__file__)
+    connect_device(Utility.setting["android"])
 
 
 class 首页(unittest.TestCase):
@@ -28,5 +24,5 @@ class 首页(unittest.TestCase):
         stop_app("com.sgcc.grsg.app")
 
     def test_首页跳转验证_3035(self):
-        BusinessLogic.app_home(self.poco)
+        Public.app_home(self.poco)
 

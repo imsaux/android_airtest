@@ -1,20 +1,29 @@
 import unittest
 import os
 from pytestreport import TestRunner
+from BasePage import Utility
 
-case_path = os.getcwd()
 
-
-def GetSuites():
-    suites = unittest.TestSuite()
-    suites.addTests(unittest.TestLoader().discover(case_path, pattern="ST_*.py", top_level_dir=None))
-    return suites
+def get_suites():
+    _suites = unittest.TestSuite()
+    _suites.addTests(
+        unittest.TestLoader().discover(
+            os.getcwd(),
+            pattern="FT_*.py",
+            top_level_dir=None
+            )
+        )
+    return _suites
 
 
 if __name__ == '__main__':
-    suites = GetSuites()
-    report_title = '1127发版'
-    report_description = ''
-    with open(report_title + r'_report.html', 'wb') as fp:
-        runner = TestRunner(fp, title=report_title, description=report_description, verbosity=2)
-        runner.run(suites)
+    suites = get_suites()
+    if suites.countTestCases() > 0:
+        with open(Utility.setting['report_title'] + r'_report.html', 'wb') as fp:
+            runner = TestRunner(
+                fp,
+                title=Utility.setting['report_title'],
+                description=Utility.setting['report_description'],
+                verbosity=2
+            )
+            runner.run(suites)
