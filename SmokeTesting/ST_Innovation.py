@@ -15,7 +15,6 @@ if not cli_setup():
 
 class 培育创新(unittest.TestCase):
     def setUp(self):
-        self.poco = AndroidUiautomationPoco(use_airtest_input=True, screenshot_each_action=False)
         start_app("com.sgcc.grsg.app")
         sleep(5)
 

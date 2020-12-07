@@ -4,15 +4,13 @@ from poco.exceptions import *
 from BasePage import BasePage
 
 
-class Home(BasePage.PageObject):
+class Details(BasePage.PageObject):
     def __init__(self):
         super().__init__()
-        self.__page_name__ = '资讯详情'
-
-    # 是否当前页面为资讯详情
-    def is_right(self, title):
-        pass
-
+        self.objs = {
+            "标题text": self.poco('firstAnchor').child('android.view.View').offspring('android.view.View'),
+            "资讯标题text": self.poco('app')
+        }
     # 点击回退
     def click_back(self):
         pass

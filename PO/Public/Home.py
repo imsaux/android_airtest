@@ -1,7 +1,7 @@
 # -*- encoding=utf8 -*-
 from airtest.core.api import *
 from poco.exceptions import *
-from BasePage import BasePage,Utility
+from BasePage import BasePage
 
 
 class Home(BasePage.PageObject):
@@ -9,50 +9,43 @@ class Home(BasePage.PageObject):
         super().__init__()
         self.__page_name__ = '首页'
         self.objs = {
-            "页面标题": self.poco("android.widget.LinearLayout")\
+            "标题text": self.poco("android.widget.LinearLayout")\
                 .offspring("android:id/content")\
                 .offspring("com.sgcc.grsg.app:id/tv_index_title"),
-            "轮播图列表": self.poco('com.sgcc.grsg.app:id/xbanner')
+            "轮播图list": self.poco('com.sgcc.grsg.app:id/xbanner')
                 .offspring('android.widget.ImageView'),
             "首页tab": self.poco('com.sgcc.grsg.app:id/navigation_index'),
             "资讯tab": self.poco('com.sgcc.grsg.app:id/navigation_news'),
             "学院tab": self.poco('com.sgcc.grsg.app:id/navigation_school'),
             "我的tab": self.poco('com.sgcc.grsg.app:id/navigation_mycenter'),
             "登录btn": self.poco('com.sgcc.grsg.app:id/tv_index_login'),
-            "个人信息btn": self.poco('com.sgcc.grsg.app:id/tv_index_login'), # todo 待修改
-            "消息通知btn": self.poco('com.sgcc.grsg.app:id/tv_index_login'), # todo 待修改
+            "个人信息btn": self.poco('com.sgcc.grsg.app:id/civ_index_head'),
+            "消息通知btn": self.poco('com.sgcc.grsg.app:id/iv_index_news'),
             "解决方案btn": self.poco('com.sgcc.grsg.app:id/tv_index_solution'),
             "供需服务btn": self.poco('com.sgcc.grsg.app:id/tv_index_service'),
             "培育创新btn": self.poco('com.sgcc.grsg.app:id/tv_index_innovate'),
             "服务云市场btn": self.poco('com.sgcc.grsg.app:id/tv_index_market'),
             "产业联盟btn": self.poco('com.sgcc.grsg.app:id/tv_index_coalition'),
-            "方案详情列表": self.poco('com.sgcc.grsg.app:id/rv_index_solution')
+            "方案详情list": self.poco('com.sgcc.grsg.app:id/rv_index_solution')
                 .offspring('android.widget.RelativeLayout'),
+            "热门课程list": self.poco('com.sgcc.grsg.app:id/pager_main_hot_course'),
+            "热门课程更多btn": self.poco('com.sgcc.grsg.app:id/tv_index_hotcourse_more'),
             "解决方案更多btn": self.poco('com.sgcc.grsg.app:id/tv_index_solution_more'),
-            "热门资讯列表更多btn": self.poco('com.sgcc.grsg.app:id/rv_index_hotinfo')
+            "热门资讯更多btn": self.poco('com.sgcc.grsg.app:id/rv_index_hotinfo')
                 .offspring('android.widget.RelativeLayout'),
             "解决方案lbl": self.poco("com.sgcc.grsg.app:id/layout_index_solution_title"),
             "热门资讯lbl": self.poco("com.sgcc.grsg.app:id/rl_index_hotinfo"),
-            "热门课程lbl": self.poco("com.sgcc.grsg.app:id/rl_index_hotcouse")
-
+            "热门课程lbl": self.poco("com.sgcc.grsg.app:id/rl_index_hotcouse"),
+            "方案标题list": self.poco("com.sgcc.grsg.app:id/item_solution_list_title"),
+            "资讯标题list": self.poco("com.sgcc.grsg.app:id/rv_index_hotinfo"),
+            "课程标题list": self.poco("com.sgcc.grsg.app:id/tv_mainTitle_1")
         }
-
-    # 是否当前页面为首页
-    def is_right(self):
-        try:
-            _home_page_title_obj= self.objs["页面标题"]
-            _home_page_title_obj.wait_for_appearance(timeout=180)
-            _home_page_title_obj_text = _home_page_title_obj.get_text()
-            if _home_page_title_obj_text == '首页':
-                return True
-            else:
-                return False
-        except PocoNoSuchNodeException as ex:
-            return False
+        self.top_obj = self.objs["轮播图list"]
+        self.bottom_obj = self.objs["课程标题list"]
 
     # 点击当前轮播图
     def click_current_carousel_figure_image(self):
-        figures_list = self.objs["轮播图列表"]
+        figures_list = self.objs["轮播图list"]
         if len(figures_list) > 0:
             figures_list[0].click()
 
@@ -118,7 +111,7 @@ class Home(BasePage.PageObject):
 
     # 点击解决方案详情
     def click_solution_details_obj(self):
-        solutions_list = self.objs["方案详情列表"]
+        solutions_list = self.objs["方案详情list"]
         if len(solutions_list) > 0:
             solutions_list[0].click()
             sleep(7)
@@ -130,19 +123,44 @@ class Home(BasePage.PageObject):
 
     # 点击热门资讯列表更多
     def click_informations_more_button(self):
-        informations_list = self.objs["热门资讯列表更多btn"]
+        informations_list = self.objs["热门资讯更多btn"]
         if len(informations_list) > 0:
             informations_list[0].click()
             sleep(5)
 
     # 点击热门课程详情
-    def click_lesson_details_obj(self):
-        pass # todo 待开发
+    def click_lesson_details_lbl(self):
+        _obj = self.objs["热门课程list"]
+        self.locate(_obj)
+        _before = _obj[0].get_text()
+        _obj[0].click()
+        sleep(3)
 
     # 点击热门课程列表更多
     def click_lessons_more_button(self):
-        pass # todo 待开发
+        _obj = self.objs["热门课程更多btn"]
+        self.locate(_obj)
+        _obj.click()
+        sleep(3)
 
-    # 刷新
-    def refresh_page(self):
-        pass # todo 待开发
+    # 获取测试方案标题
+    def get_solution_title(self):
+        _obj = self.objs['方案详情list']
+        if not _obj.exists():
+            self.locate(_obj)
+        if len(_obj) > 0:
+            return _obj[0].get_text()
+        else:
+            raise PocoNoSuchNodeException
+
+    # 获取测试资讯标题
+    def get_information_title(self):
+        _obj = self.objs['资讯标题list']
+        if not _obj.exists():
+            self.locate(_obj)
+        if len(_obj) > 0:
+            return _obj[0].get_text()
+        else:
+            raise PocoNoSuchNodeException
+
+    #

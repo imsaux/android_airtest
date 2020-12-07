@@ -5,14 +5,19 @@ import unittest
 from airtest.core.api import *
 from airtest.cli.parser import cli_setup
 from poco.drivers.android.uiautomation import AndroidUiautomationPoco
-from PO import Public, Information, Utility
-
-if not cli_setup():
-    auto_setup(__file__)
-    connect_device(Utility.setting["android"])
+from PO.Public import Home
+from PO.Infomation.Information_home import Home
+from PO.Infomation.Information_details import Details
+from PO.Infomation.Information_contribute_details import ContributeDetails
 
 
 class 资讯(unittest.TestCase):
+    def __init__(self):
+        super().__init__()
+        self.page_home = Home()
+        self.page_details = Details()
+        self.page_contribute_details = ContributeDetails()
+
     def setUp(self):
         self.poco = AndroidUiautomationPoco(use_airtest_input=True, screenshot_each_action=False)
         start_app("com.sgcc.grsg.app")
@@ -23,11 +28,7 @@ class 资讯(unittest.TestCase):
 
     # 资讯，搜索栏功能验证
     def test_资讯查询验证_3038(self):
-        Public.app_home(self.poco)
-        sleep(3)
-        Information.information_home(self.poco)
-        sleep(3)
-        Information.information_search(self.poco)
+        pass
 
     # 查看资讯详情
     def test_资讯详情内容验证_3039(self):
