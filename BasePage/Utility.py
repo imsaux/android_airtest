@@ -2,8 +2,11 @@ from airtest.core.api import *
 import json
 
 
-with open("settings.json", 'r') as f:
-    setting = json.load(f)
+with open("settings.json", 'r') as s:
+    setting = json.load(s)
+
+with open("devices.json", 'r') as d:
+    devices = json.load(d)
 
 
 def debug(fn):

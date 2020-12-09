@@ -10,7 +10,7 @@ class PageObject(object):
     def __init__(self):
         if not cli_setup():
             auto_setup(__file__)
-            self.device = connect_device(Utility.setting["s9"])
+            self.device = connect_device(Utility.devices["huaweip8"])
         self.poco = AndroidUiautomationPoco(use_airtest_input=True, screenshot_each_action=False)
         self.objs = {}
         self.top_obj = None

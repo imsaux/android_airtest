@@ -5,16 +5,16 @@ import unittest
 from airtest.core.api import *
 from airtest.cli.parser import cli_setup
 from poco.drivers.android.uiautomation import AndroidUiautomationPoco
-from PO.Public import Home
-from PO.Infomation.Information_home import Home
-from PO.Infomation.Information_details import Details
-from PO.Infomation.Information_contribute_details import ContributeDetails
+from PO.Public import home
+from PO.Infomation.home import Home
+from PO.Infomation.details import Details
+from PO.Infomation.contribute_details import ContributeDetails
 
 
 class 资讯(unittest.TestCase):
     def __init__(self):
         super().__init__()
-        self.page_home = Home()
+        self.page_home = home()
         self.page_details = Details()
         self.page_contribute_details = ContributeDetails()
 

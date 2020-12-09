@@ -1,7 +1,8 @@
-from PO.Infomation import Information_home
-
+from PO.Public import login_by_sms
 
 if __name__ == '__main__':
-    page = Information_home.Home()
-    print(page.click_information_details())
+    page = login_by_sms.LoginBySMS()
+    print(page.get_sms_code())
+
+
 

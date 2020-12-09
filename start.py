@@ -9,7 +9,7 @@ def get_suites():
     _suites.addTests(
         unittest.TestLoader().discover(
             os.getcwd(),
-            pattern="FT_*.py",
+            pattern=Utility.setting['discover_pattern'],
             top_level_dir=None
             )
         )

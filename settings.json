@@ -1,6 +1,7 @@
 {
-    "r11": "android://127.0.0.1:5037/1f4ac875",
-    "s9": "android://127.0.0.1:5037/235251c01b0d7ece",
     "report_title": "",
-    "report_description": ""
+    "report_description": "",
+    "debug": 1,
+    "discover_pattern": "ST_*.py",
+    "distributed": 0
 }

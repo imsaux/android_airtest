@@ -33,7 +33,8 @@ class Home(BasePage.PageObject):
 
     # 点击个人信息
     def click_personal_information_button(self):
-        pass # todo 待开发
+        self.objs["投稿btn"].click()
+        sleep(3)
 
     # 点击投稿
     def click_contribute_button(self):
@@ -91,4 +92,5 @@ class Home(BasePage.PageObject):
             sleep(3)
             return _inf_title
         else:
-            assert_equal(False, True, "无资讯")
+            pe = PocoException(message="无资讯")
+            raise pe

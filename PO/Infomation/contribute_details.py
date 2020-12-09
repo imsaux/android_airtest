@@ -7,7 +7,6 @@ from BasePage import BasePage
 class ContributeDetails(BasePage.PageObject):
     def __init__(self):
         super().__init__()
-        self.__page_name__ = '投稿'
 
     # 点击取消
     def click_cancel_button(self):
