@@ -17,7 +17,6 @@ def debug(fn):
         stop_app("com.sgcc.grsg.app")
     return _in
 
-
 # 获取sms验证码
 def get_sms():
     # todo 待开发

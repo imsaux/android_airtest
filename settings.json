@@ -1,7 +1,8 @@
 {
-    "report_title": "",
-    "report_description": "",
+    "report_title": "测试",
+    "report_description": "测试",
     "debug": 1,
-    "discover_pattern": "ST_*.py",
+    "discover_path": "./Case/EnergyAcademy",
+    "discover_pattern": "st_*.py",
     "distributed": 0
 }

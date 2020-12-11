@@ -7,7 +7,6 @@ from BasePage import BasePage
 class Home(BasePage.PageObject):
     def __init__(self):
         super().__init__()
-        self.__page_name__ = '首页'
         self.objs = {
             "标题text": self.poco("android.widget.LinearLayout")\
                 .offspring("android:id/content")\
@@ -42,6 +41,12 @@ class Home(BasePage.PageObject):
         }
         self.top_obj = self.objs["轮播图list"]
         self.bottom_obj = self.objs["课程标题list"]
+
+    def is_logined(self):
+        try:
+            return self.objs["个人信息btn"].exists()
+        except PocoNoSuchNodeException as ex:
+            return False
 
     # 点击当前轮播图
     def click_current_carousel_figure_image(self):

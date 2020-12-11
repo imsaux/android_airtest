@@ -10,7 +10,7 @@ class PageObject(object):
     def __init__(self):
         if not cli_setup():
             auto_setup(__file__)
-            self.device = connect_device(Utility.devices["huaweip8"])
+            self.device = connect_device(Utility.devices["oppor11"])
         self.poco = AndroidUiautomationPoco(use_airtest_input=True, screenshot_each_action=False)
         self.objs = {}
         self.top_obj = None
@@ -18,6 +18,13 @@ class PageObject(object):
         self.is_top = False
         self.is_bottom = False
         self.current_directon = ""
+
+    def get_current_title(self):
+        try:
+            self.locate(self.objs["标题text"])
+            return self.objs["标题text"].get_text()
+        except PocoNoSuchNodeException as ex:
+            raise PocoException(message="标题元素未找到")
 
     def _get_coordinate(self):
         if self.top_obj.exists():
@@ -75,6 +82,3 @@ class PageObject(object):
         self.locate(self.top_obj)
         start_pos, end_pos = Utility.get_pos(self.device.get_display_info(), "up")
         swipe(start_pos, end_pos)
-
-    def __del__(self):
-        self.poco.stop_running()

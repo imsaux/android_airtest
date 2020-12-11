@@ -12,6 +12,7 @@ class Home(BasePage.PageObject):
             "查询框tb": self.poco('com.sgcc.grsg.app:id/et_consult_search'),
             "投稿btn": self.poco('com.sgcc.grsg.app:id/tv_index_contribution'),
             "登录btn": self.poco('com.sgcc.grsg.app:id/tv_index_login'),
+            "个人信息btn": self.poco('com.sgcc.grsg.app:id/civ_index_head'),
             "资讯分类lbl": self.poco('com.sgcc.grsg.app:id/tl_consult_title'),
             "资讯list": self.poco('com.sgcc.grsg.app:id/recycler_base_page_list')
                 .offspring('android.widget.RelativeLayout'),
@@ -33,7 +34,7 @@ class Home(BasePage.PageObject):
 
     # 点击个人信息
     def click_personal_information_button(self):
-        self.objs["投稿btn"].click()
+        self.objs["个人信息btn"].click()
         sleep(3)
 
     # 点击投稿
