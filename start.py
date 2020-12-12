@@ -1,6 +1,6 @@
 import unittest
 from pytestreport import TestRunner
-from BasePage import Utility
+from Base import Utility
 
 
 if __name__ == '__main__':

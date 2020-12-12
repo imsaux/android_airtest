@@ -1,7 +1,7 @@
 # -*- encoding=utf8 -*-
 from airtest.core.api import *
 from poco.exceptions import *
-from BasePage import BasePage
+from Base import BasePage
 
 
 class Home(BasePage.PageObject):
@@ -16,6 +16,7 @@ class Home(BasePage.PageObject):
             "资讯分类lbl": self.poco('com.sgcc.grsg.app:id/tl_consult_title'),
             "资讯list": self.poco('com.sgcc.grsg.app:id/recycler_base_page_list')
                 .offspring('android.widget.RelativeLayout'),
+            "资讯标题list": self.poco('com.sgcc.grsg.app:id/tv_info_title'),
             "推荐tab": self.poco('推荐'),
             "新闻资讯tab": self.poco('新闻资讯'),
             "政策法规tab": self.poco('政策法规'),
@@ -84,14 +85,21 @@ class Home(BasePage.PageObject):
             self.swipe_down()
             sleep(2)
 
-    # 点击查看资讯详情
-    def click_information_details(self):
-        _objs = self.objs["资讯list"]
-        if len(_objs) > 0:
-            _inf_title = self.poco('com.sgcc.grsg.app:id/tv_info_title')[0].get_text()
-            _objs[0].click()
-            sleep(3)
-            return _inf_title
+    def get_information_title(self, index=1):
+        _information_titles = self.objs["资讯标题list"]
+        if self.get_information_count() > 0:
+            return self.get_obj_by_index(_information_titles, index).get_text()
         else:
-            pe = PocoException(message="无资讯")
-            raise pe
+            raise PocoException(message="资讯标题列表无数据")
+
+    def get_information_count(self):
+        return self.get_obj_count(self.objs["资讯list"])
+
+    # 点击查看资讯详情
+    def click_information_details(self, index=1):
+        _information_list = self.objs["资讯list"]
+        if self.get_information_count() > 0:
+            self.get_obj_by_index(_information_list, index).click()
+            sleep(5)
+        else:
+            raise PocoException(message="资讯列表无数据")

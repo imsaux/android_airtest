@@ -1,7 +1,7 @@
 # -*- encoding=utf8 -*-
 from airtest.core.api import *
 from poco.exceptions import *
-from BasePage import BasePage
+from Base import BasePage
 
 
 class ContributeDetails(BasePage.PageObject):

@@ -5,7 +5,7 @@ from PO.Other import other_home
 from PO.EnergyAcademy import energy_academy_home, energy_academy_course_details
 
 
-class JumpCourseDetails(unittest.TestCase):
+class RedirectHotCourseDetails(unittest.TestCase):
     def setUp(self):
         self.p_energy_academy_home = energy_academy_home.Home()
         self.p_energy_academy_details = energy_academy_course_details.CourseDetails()
@@ -16,7 +16,7 @@ class JumpCourseDetails(unittest.TestCase):
     def tearDown(self):
         stop_app("com.sgcc.grsg.app")
 
-    def test_jump_hot_course_details(self):
+    def test_redirect_hot_course_details(self):
         self.p_other_home.click_academy_tab()
         assert_equal(self.p_energy_academy_home.get_current_title(), "学院", "首页跳转学院首页异常！")
         after_course_title = self.p_energy_academy_home.get_hot_course_title()

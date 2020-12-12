@@ -5,7 +5,7 @@ from PO.Other import other_home
 from PO.EnergyAcademy import energy_academy_home
 
 
-class JumpHome(unittest.TestCase):
+class RedirectHome(unittest.TestCase):
     def setUp(self):
         self.p_energy_academy_home = energy_academy_home.Home()
         self.p_other_home = other_home.Home()

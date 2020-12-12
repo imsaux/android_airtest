@@ -3,7 +3,7 @@ from airtest.core.api import *
 from poco.exceptions import *
 from airtest.cli.parser import cli_setup
 from poco.drivers.android.uiautomation import AndroidUiautomationPoco
-from BasePage import Utility
+from Base import Utility
 
 
 class PageObject(object):
@@ -82,3 +82,14 @@ class PageObject(object):
         self.locate(self.top_obj)
         start_pos, end_pos = Utility.get_pos(self.device.get_display_info(), "up")
         swipe(start_pos, end_pos)
+
+    def get_obj_by_index(self, seq, index):
+        if index is not int or index < 1:
+            return seq[0]
+        else:
+            return seq[index - 1]
+
+    def get_obj_count(self, objs):
+        self.locate(objs)
+        return len(objs)
+
