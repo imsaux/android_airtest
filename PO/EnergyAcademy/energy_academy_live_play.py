@@ -21,3 +21,7 @@ class LivePlay(BasePage.PageObject):
         }
         self.top_obj = self.objs["视频view"]
         self.bottom_obj = self.objs["直播简介text"]
+
+    def click_back(self):
+        self.objs["回退btn"].click()
+        sleep(3)

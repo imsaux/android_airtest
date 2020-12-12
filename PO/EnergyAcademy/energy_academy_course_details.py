@@ -24,5 +24,9 @@ class CourseDetails(BasePage.PageObject):
         self.top_obj = self.objs["图片image"]
         self.bottom_obj = self.objs["开始学习btn"]
 
+    def click_back(self):
+        self.objs["回退btn"].click()
+        sleep(3)
+
     def get_course_title(self):
         return self.objs["课程标题text"].get_text()

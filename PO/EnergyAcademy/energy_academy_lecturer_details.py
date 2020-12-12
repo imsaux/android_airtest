@@ -41,3 +41,7 @@ class LecturerDetails(BasePage.PageObject):
         }
         self.top_obj = self.objs["大咖姓名text"]
         self.bottom_obj = self.objs["关注讲师btn"]
+
+    def click_back(self):
+        self.objs["回退btn"].click()
+        sleep(3)
